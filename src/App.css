@@ -25,7 +25,6 @@
     color: #fff;
     font-family: "Audiowide", cursive;
     z-index: 1001;
-
 }
 
 .navbar__container h1 span {
@@ -87,6 +86,11 @@
 @media screen and (max-width: 992px) {
     .hamburger {
         display: block;
+        background-color: salmon;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+
     }
 
     .nav__links {
@@ -275,8 +279,16 @@ section.hero .content p {
         justify-items: center;
     }
 
+    section.hero .content h3 {
+        font-size: 1.4rem;
+    }
+
+    section.hero .content h1 {
+        font-size: 2rem;
+    }
+
     section.hero .content .playful-btn {
-        margin: 0 auto;
+        margin: 10px auto;
     }
 
     section.hero .content {
@@ -305,5 +317,119 @@ section.hero .content p {
         object-fit: cover;
         z-index: 1;
         border: 10px solid var(--card-bg);
+    }
+}
+
+
+/* about */
+section.about {
+    padding-top: 80px;
+}
+
+.about__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    margin-top: 60px;
+}
+
+.image__content.about {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+    z-index: 1;
+}
+
+.image__content.about::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    width: calc(100% + 16px);
+    height: calc(100% + 16px);
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    z-index: 0;
+    animation: rotateHeroImage 8s linear infinite;
+    /* filter: blur(3px); */
+    opacity: 0.8;
+}
+
+@keyframes rotateHeroImage {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.image__content.about img {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    object-fit: cover;
+    z-index: 2;
+    border: 6px solid var(--card-bg);
+    display: block;
+    margin: 0 auto;
+}
+
+.desc__about {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.desc__about h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    font-family: "orbitron", sans-serif;
+    color: #fff;
+}
+
+.desc__about h1 span {
+    color: var(--accent-color);
+}
+
+@media screen and (max-width: 992px) {
+    .about__content {
+        grid-template-columns: 1fr;
+    }
+
+    .image__content.about {
+        position: relative;
+        width: 220px;
+        height: 220px;
+        margin-bottom: 50px;
+    }
+
+    .image__content.about img {
+        position: relative;
+        width: 200px;
+        height: 200px;
+    }
+
+    .desc__about {
+        max-width: 500px;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .desc__about .playful-btn {
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .desc__about {
+        max-width: 100%;
     }
 }

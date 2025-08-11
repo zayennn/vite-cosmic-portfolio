@@ -145,10 +145,50 @@ body {
 }
 
 .playful-btn.bounce {
-  animation: gradientShift 4s ease infinite, bounce 2s ease infinite;
+    animation: gradientShift 4s ease infinite, bounce 2s ease infinite;
 }
 
 @keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+
+/* section title */
+.section__title {
+    font-family: 'Audiowide', cursive;
+    font-size: 2.5rem;
+    color: var(--light-color);
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.section__title span {
+    color: var(--primary-color);
+}
+
+.section__title::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 2px;
+    background-color: var(--primary-color);
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.section__devider {
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    margin: 30px auto 0 auto;
 }

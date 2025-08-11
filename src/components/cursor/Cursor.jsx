@@ -17,7 +17,7 @@ const Cursor = () => {
         let hoverButton;
 
         // List elemen yang bikin cursor membesar pas hover
-        const hoverSelectors = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'a', 'button', '.card'];
+        // const hoverSelectors = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'a', 'button', '.card'];
 
         class HoverButton {
             constructor(id) {

@@ -2,13 +2,13 @@ import { React, useState, useEffect, useRef } from "react";
 import "./App.css";
 import Typed from "typed.js";
 import heroImg from './assets/images/me2.jpg'
+import aboutImg from './assets/images/me.jpg'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 import Cursor from "./components/cursor/Cursor";
 
 export const App = () => {
-
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -62,6 +62,12 @@ export const App = () => {
     };
   }, []);
 
+  // description about
+  const descAbout = [{
+    desc1: "As a passionate Fullstack Web Developer, I specialize in building scalable, responsive, and user-friendly web applications. I work with a modern tech stack including HTML5, CSS3, Bootstrap 5, JavaScript, PHP, Laravel, and React.js. I take pride in writing clean, efficient code and creating seamless user experiences.",
+    desc2: "I thrive in team environments where collaboration and continuous learning are key. Keeping up with the latest technologies and best practices is part of my daily routine, ensuring that the solutions I develop are not only functional but also future-ready. Whether it's front-end design or back-end logic, I enjoy bringing ideas to life through code and solving real-world problems with smart digital solutions. I'm always eager to learn new technologies and take on new challenges, and I'm committed to delivering high-quality results to my clients."
+  }]
+
   return (
     <>
       {/* costume cursor */}
@@ -91,11 +97,12 @@ export const App = () => {
 
       {/* hero section */}
       <div className="container">
+        {/* hero */}
         <section className="hero" id="hero">
           <div className="content">
             <h3 data-aos="fade-up">hello everyone, i'm</h3>
             <h1 data-aos="fade-up" data-aos-delay="300">
-              elang atha <span>zahran</span> 👋
+              elang atha <span>zahran</span>
             </h1>
             <p data-aos="fade-up" data-aos-delay="500">
               i'm a, <span ref={el}></span>
@@ -110,6 +117,30 @@ export const App = () => {
               <div className="mouse__scroller"></div>
             </div>
           </a>
+        </section>
+
+        {/* about */}
+        <section className="about" id="about">
+          <h1 class="section__title">
+            About <span>Me</span>
+          </h1>
+          <div class="section__devider"></div>
+
+          <div className="about__content">
+            <div class="image__content about">
+              <img src={aboutImg} alt="Elang Atha Zahran" />
+            </div>
+            <div class="desc__about">
+              <h1>I'm a passionate web <span>developer</span></h1>
+              <p class="desc__about subtitle">
+                {descAbout[0].desc1}
+              </p>
+              <p class="desc__about subtitle">
+                {descAbout[0].desc2}
+              </p>
+              <a href="#" class="playful-btn">Download Cv</a>
+            </div>
+          </div>
         </section>
       </div>
     </>
