@@ -5,6 +5,8 @@ import heroImg from './assets/images/me2.jpg'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
+import Cursor from "./components/cursor/Cursor";
+
 export const App = () => {
 
   useEffect(() => {
@@ -62,6 +64,9 @@ export const App = () => {
 
   return (
     <>
+      {/* costume cursor */}
+      <Cursor />
+
       {/* navbar */}
       <div className={`navbar__container ${isActive ? "active" : ""}`}>
         <h1>
@@ -100,6 +105,11 @@ export const App = () => {
           <div className="image__content hero" data-aos="fade-left" data-aos-delay="500">
             <img src={heroImg} alt="Profile Image" />
           </div>
+          <a href="#about" id="mouse__down">
+            <div className="mousedown">
+              <div className="mouse__scroller"></div>
+            </div>
+          </a>
         </section>
       </div>
     </>

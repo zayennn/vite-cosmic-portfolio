@@ -41,6 +41,10 @@
     text-transform: capitalize;
 }
 
+.nav__links a {
+    color: #fff;
+}
+
 .hamburger {
     cursor: pointer;
     display: none;
@@ -133,7 +137,7 @@ section.hero {
     grid-template-columns: 1fr 1fr;
     align-items: center;
     place-items: center;
-
+    position: relative;
 }
 
 .content {
@@ -213,6 +217,53 @@ section.hero .content p {
     z-index: 1;
     border: 10px solid var(--card-bg);
 }
+
+#mouse__down {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.mousedown {
+    width: 25px;
+    height: 40px;
+    border-radius: 100px;
+    background-color: transparent;
+    border: 2px solid #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.mouse__scroller {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #fff;
+    animation: scrollDown 1s linear infinite;
+    position: absolute;
+    top: 3px;
+    left: 30%;
+    transform: translateX(-50%);
+}
+
+@keyframes scrollDown {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(10px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
 
 @media screen and (max-width: 992px) {
     section.hero {
