@@ -1,5 +1,7 @@
-import { useState, useEffect } from "react";
+import { React, useState, useEffect, useRef } from "react";
 import "./App.css";
+import Typed from "typed.js";
+import heroImg from './assets/images/me2.jpg'
 
 export const App = () => {
   const [isActive, setIsActive] = useState(false);
@@ -32,6 +34,23 @@ export const App = () => {
     setIsChecked(!isChecked);
   }
 
+  const el = useRef(null);
+
+  useEffect(() => {
+    const typed = new Typed(el.current, {
+      strings: ["junior fullstack web developer", "ui/ux designer", "freelancer"],
+      typeSpeed: 10,
+      backSpeed: 20,
+      backDelay: 1000,
+      fadeOut: true,
+      loop: true,
+    });
+
+    return () => {
+      typed.destroy();
+    };
+  }, []);
+
   return (
     <>
       {/* navbar */}
@@ -40,12 +59,12 @@ export const App = () => {
           port<span>folio</span>
         </h1>
         <nav className={`nav__links ${isChecked ? "active" : ""}`}>
-          <a href="#" className="nav__link" style={{ "--i": 1 }}>home</a>
-          <a href="#" className="nav__link" style={{ "--i": 2 }}>about</a>
-          <a href="#" className="nav__link" style={{ "--i": 3 }}>skills</a>
-          <a href="#" className="nav__link" style={{ "--i": 4 }}>education & experience</a>
-          <a href="#" className="nav__link" style={{ "--i": 5 }}>projects</a>
-          <a href="#" className="nav__link" style={{ "--i": 6 }}>contact</a>
+          <a href="#hero" className="nav__link" style={{ "--i": 1 }}>home</a>
+          <a href="#about" className="nav__link" style={{ "--i": 2 }}>about</a>
+          <a href="#skills" className="nav__link" style={{ "--i": 3 }}>skills</a>
+          <a href="#education" className="nav__link" style={{ "--i": 4 }}>education & experience</a>
+          <a href="#projects" className="nav__link" style={{ "--i": 5 }}>projects</a>
+          <a href="#contact" className="nav__link" style={{ "--i": 6 }}>contact</a>
         </nav>
         <label className="hamburger">
           <input type="checkbox" onChange={handleCheckbox} />
@@ -54,6 +73,25 @@ export const App = () => {
             <path className="line" d="M7 16 27 16" />
           </svg>
         </label>
+      </div>
+
+      {/* hero section */}
+      <div className="container">
+        <section className="hero" id="hero">
+          <div className="content">
+            <h3>hello everyone, i'm</h3>
+            <h1>
+              elang atha <span>zahran</span> 👋
+            </h1>
+            <p>
+              i'm a, <span ref={el}></span>
+            </p>
+            <button className="playful-btn">let's connect</button>
+          </div>
+          <div className="image__content hero">
+            <img src={heroImg} alt="Profile Image" />
+          </div>
+        </section>
       </div>
     </>
   )
