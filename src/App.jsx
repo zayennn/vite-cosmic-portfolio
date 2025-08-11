@@ -2,8 +2,17 @@ import { React, useState, useEffect, useRef } from "react";
 import "./App.css";
 import Typed from "typed.js";
 import heroImg from './assets/images/me2.jpg'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export const App = () => {
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+    });
+  }, []);
+
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
@@ -79,16 +88,16 @@ export const App = () => {
       <div className="container">
         <section className="hero" id="hero">
           <div className="content">
-            <h3>hello everyone, i'm</h3>
-            <h1>
+            <h3 data-aos="fade-up">hello everyone, i'm</h3>
+            <h1 data-aos="fade-up" data-aos-delay="300">
               elang atha <span>zahran</span> 👋
             </h1>
-            <p>
+            <p data-aos="fade-up" data-aos-delay="500">
               i'm a, <span ref={el}></span>
             </p>
-            <button className="playful-btn">let's connect</button>
+            <button className="playful-btn" data-aos="fade-up" data-aos-delay="700">let's connect</button>
           </div>
-          <div className="image__content hero">
+          <div className="image__content hero" data-aos="fade-left" data-aos-delay="500">
             <img src={heroImg} alt="Profile Image" />
           </div>
         </section>
