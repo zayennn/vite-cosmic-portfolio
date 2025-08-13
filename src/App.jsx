@@ -11,7 +11,13 @@ import 'swiper/css/free-mode'
 import 'swiper/css/autoplay'
 import { FreeMode, Autoplay } from 'swiper/modules'
 
+// components
 import Cursor from "./components/cursor/Cursor"
+import StarField from "./components/starfield/StarField"
+
+// data
+import descAbout from './assets/datas/descAbout'
+import skillContent from './assets/datas/Skills'
 
 export const App = () => {
   useEffect(() => {
@@ -92,303 +98,10 @@ export const App = () => {
     }
   }, [])
 
-  // description about
-  const descAbout = [{
-    desc1: "As a passionate Fullstack Web Developer, I specialize in building scalable, responsive, and user-friendly web applications. I work with a modern tech stack including HTML5, CSS3, Bootstrap 5, JavaScript, PHP, Laravel, and React.js. I take pride in writing clean, efficient code and creating seamless user experiences.",
-    desc2: "I thrive in team environments where collaboration and continuous learning are key. Keeping up with the latest technologies and best practices is part of my daily routine, ensuring that the solutions I develop are not only functional but also future-ready. Whether it's front-end design or back-end logic, I enjoy bringing ideas to life through code and solving real-world problems with smart digital solutions. I'm always eager to learn new technologies and take on new challenges, and I'm committed to delivering high-quality results to my clients."
-  }]
-
-  // skill content
-  const skillContent = [
-    {
-      id: 1,
-      icon: "fa-brands fa-html5",
-      name: "HTML5",
-      desc: "The backbone of the web, crafting semantic and accessible markup."
-    },
-    {
-      id: 2,
-      icon: "fa-brands fa-css3-alt",
-      name: "CSS3",
-      desc: "Designing beautiful and responsive layouts with modern styling techniques."
-    },
-    {
-      id: 3,
-      icon: "fa-brands fa-js",
-      name: "JavaScript",
-      desc: "Adding interactivity and dynamic behavior to web applications."
-    },
-    {
-      id: 4,
-      icon: "fa-brands fa-bootstrap",
-      name: "Bootstrap 5",
-      desc: "Rapid UI development with a responsive, mobile-first framework."
-    },
-    {
-      id: 5,
-      icon: "/skills/tailwind.svg",
-      name: "Tailwind CSS",
-      desc: "Utility-first CSS framework for building modern, custom designs."
-    },
-    {
-      id: 6,
-      icon: "fa-brands fa-react",
-      name: "React",
-      desc: "Building reusable components and interactive UIs efficiently."
-    },
-    {
-      id: 7,
-      icon: "/skills/vite.svg",
-      name: "Vite",
-      desc: "Lightning-fast frontend tooling for modern web projects."
-    },
-    {
-      id: 8,
-      icon: "fa-brands fa-node-js",
-      name: "Node.js",
-      desc: "Server-side JavaScript runtime for scalable backend development."
-    },
-    {
-      id: 9,
-      icon: "/skills/express.svg",
-      name: "Express",
-      desc: "Minimal and flexible Node.js framework for building APIs."
-    },
-    {
-      id: 10,
-      icon: "fa-brands fa-php",
-      name: "PHP",
-      desc: "Server-side scripting language powering dynamic websites."
-    },
-    {
-      id: 11,
-      icon: "fa-brands fa-laravel",
-      name: "Laravel",
-      desc: "Elegant PHP framework for modern web application development."
-    },
-    {
-      id: 12,
-      icon: "fa-brands fa-python",
-      name: "Python",
-      desc: "Versatile programming language for everything from web to AI."
-    },
-    {
-      id: 13,
-      icon: "/skills/flask.svg",
-      name: "Flask",
-      desc: "Lightweight Python framework for rapid web app development."
-    },
-    {
-      id: 14,
-      icon: "/skills/mysql.svg",
-      name: "MySQL",
-      desc: "Reliable relational database for structured data management."
-    },
-    {
-      id: 15,
-      icon: "/skills/postgresql.svg",
-      name: "PostgreSQL",
-      desc: "Advanced open-source database with powerful features."
-    },
-    {
-      id: 16,
-      icon: "fa-brands fa-git",
-      name: "Git",
-      desc: "Version control system to track and manage code changes."
-    },
-    {
-      id: 17,
-      icon: "fa-brands fa-github",
-      name: "GitHub",
-      desc: "Collaboration platform for hosting and reviewing code."
-    },
-  ]
-
-
-  // window scroll + parallax effects
-  const starContainerRef = useRef(null);
-
-  useEffect(() => {
-    const sizes = [1.5, 2, 2.3, 2.8, 3];
-    const starCount = 120;
-    const container = starContainerRef.current;
-    container.innerHTML = "";
-
-    const starsData = [];
-    const blackHoles = [];
-    let latestScrollY = 0;
-
-    // Spawn stars
-    for (let i = 0; i < starCount; i++) {
-      const size = sizes[Math.floor(Math.random() * sizes.length)];
-      const star = document.createElement("div");
-      star.classList.add("star");
-      star.style.width = `${size}px`;
-      star.style.height = `${size}px`;
-      star.style.left = `${Math.random() * 100}%`;
-      star.style.top = `${Math.random() * 100}%`;
-      container.appendChild(star);
-
-      const sizeFactor = Math.pow((Math.max(...sizes) / size) / 0.2, 2);
-      const speed = sizeFactor * 0.15;
-
-      starsData.push({
-        el: star,
-        size,
-        baseTop: parseFloat(star.style.top),
-        baseLeft: parseFloat(star.style.left),
-        speed,
-        pullOffset: { x: 0, y: 0 },
-        pulled: false
-      });
-    }
-
-    // Spawn black hole function
-    const spawnBlackHole = () => {
-      // Kalau masih ada black hole aktif, skip
-      if (blackHoles.length > 0) return;
-
-      const blackHole = document.createElement("div");
-      blackHole.classList.add("black-hole");
-
-      const x = Math.random() * window.innerWidth;
-      const y = Math.random() * document.body.scrollHeight;
-
-      blackHole.style.left = `${x}px`;
-      blackHole.style.top = `${y}px`;
-
-      container.appendChild(blackHole);
-
-      const bhData = {
-        el: blackHole,
-        baseTop: y / window.innerHeight * 100,
-        baseLeft: x,
-        speed: 15
-      };
-      blackHoles.push(bhData);
-
-      // Tarikan bintang
-      const pullRadius = 200;
-      const pullDuration = 1500;
-
-      starsData.forEach(star => {
-        const starRect = star.el.getBoundingClientRect();
-        const holeRect = blackHole.getBoundingClientRect();
-        const dx = (holeRect.left + holeRect.width / 2) - (starRect.left + starRect.width / 2);
-        const dy = (holeRect.top + holeRect.height / 2) - (starRect.top + starRect.height / 2);
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        if (distance < pullRadius && !star.pulled) {
-          star.pulled = true;
-          const pullStrength = 1 - distance / pullRadius;
-
-          const startTime = performance.now();
-          const animatePull = (time) => {
-            const t = Math.min((time - startTime) / pullDuration, 1);
-            star.pullOffset.x = dx * t * pullStrength * 2;
-            star.pullOffset.y = dy * t * pullStrength * 2;
-            star.el.style.opacity = `${1 - t}`;
-            if (t < 1) requestAnimationFrame(animatePull);
-            else {
-              star.el.style.display = "none";
-            }
-          };
-          requestAnimationFrame(animatePull);
-        }
-      });
-
-      // Hilang setelah 8 detik
-      setTimeout(() => {
-        blackHole.remove();
-        blackHoles.splice(0, 1);
-
-        // Spawn lagi setelah delay random 7-10 detik
-        setTimeout(spawnBlackHole, 7000 + Math.random() * 3000);
-      }, 8000);
-    };
-
-    // Spawn pertama setelah 3 detik
-    setTimeout(spawnBlackHole, 3000);
-
-    // Scroll handler
-    const handleScroll = () => {
-      latestScrollY = window.scrollY;
-    };
-    window.addEventListener("scroll", handleScroll);
-
-    // Animation loop
-    const animate = () => {
-      starsData.forEach(star => {
-        if (!star.pulled) {
-          star.el.style.transform = `translate(${star.pullOffset.x}px, ${-latestScrollY / star.speed + star.pullOffset.y}px)`;
-        } else {
-          star.el.style.transform = `translate(${star.pullOffset.x}px, ${star.pullOffset.y - latestScrollY / star.speed}px)`;
-        }
-      });
-
-      blackHoles.forEach(bh => {
-        bh.el.style.transform = `translateY(${-latestScrollY / bh.speed}px)`;
-      });
-
-      requestAnimationFrame(animate);
-    };
-    animate();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  // shouting stars
-  useEffect(() => {
-    const container = starContainerRef.current;
-
-    const createShootingStar = () => {
-      const shootingStar = document.createElement("div");
-      shootingStar.classList.add("shooting-star");
-
-      const bodyHeight = document.body.scrollHeight;
-      const startY = Math.random() * bodyHeight;
-      const startX = Math.random() * window.innerWidth;
-
-      const angleDeg = 15 + Math.random() * 30;
-      const angleRad = angleDeg * (Math.PI / 180);
-
-      const speed = 400 + Math.random() * 300;
-      const distance = 1000;
-
-      const endX = startX + Math.cos(angleRad) * distance;
-      const endY = startY + Math.sin(angleRad) * distance;
-
-      shootingStar.style.left = `${startX}px`;
-      shootingStar.style.top = `${startY}px`;
-      shootingStar.style.transform = `rotate(${angleDeg}deg)`;
-
-      shootingStar.animate([
-        { transform: `translate(0, 0) rotate(${angleDeg}deg)`, opacity: 1 },
-        { transform: `translate(${endX - startX}px, ${endY - startY}px) rotate(${angleDeg}deg)`, opacity: 0 }
-      ], {
-        duration: (distance / speed) * 1000,
-        easing: "linear"
-      });
-
-      container.appendChild(shootingStar);
-
-      setTimeout(() => shootingStar.remove(), (distance / speed) * 1000);
-    };
-
-    const interval = setInterval(() => {
-      if (Math.random() < 0.5) createShootingStar();
-    }, 800);
-
-    return () => clearInterval(interval);
-  }, []);
-
-
   return (
     <>
       {/* stars */}
-      <div className="stars-overlay" ref={starContainerRef}></div>
+      <StarField />
 
       {/* costume cursor */}
       <Cursor />
@@ -454,12 +167,18 @@ export const App = () => {
             </div>
             <div class="desc__about">
               <h1>I'm a passionate web <span>developer</span></h1>
-              <p class="desc__about subtitle">
-                {descAbout[0].desc1}
-              </p>
-              <p class="desc__about subtitle">
-                {descAbout[0].desc2}
-              </p>
+              {descAbout.map((desc) => {
+                return (
+                  <>
+                    <p class="desc__about subtitle">
+                      {desc.desc1}
+                    </p>
+                    <p class="desc__about subtitle">
+                      {desc.desc2}
+                    </p>
+                  </>
+                )
+              })}
               <a href="#" class="playful-btn">Download Cv</a>
             </div>
           </div>
