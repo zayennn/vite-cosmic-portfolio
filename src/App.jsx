@@ -1,51 +1,56 @@
-import { React, useState, useEffect, useRef } from "react";
-import "./App.css";
-import Typed from "typed.js";
+import { useState, useEffect, useRef } from "react"
+import "./App.css"
+import Typed from "typed.js"
 import heroImg from './assets/images/me2.jpg'
 import aboutImg from './assets/images/me.jpg'
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import { Swiper, SwiperSlide } from "swiper/react"
+import 'swiper/css'
+import 'swiper/css/free-mode'
+import 'swiper/css/autoplay'
+import { FreeMode, Autoplay } from 'swiper/modules'
 
-import Cursor from "./components/cursor/Cursor";
+import Cursor from "./components/cursor/Cursor"
 
 export const App = () => {
   useEffect(() => {
     AOS.init({
       duration: 1000,
-    });
-  }, []);
+    })
+  }, [])
 
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(false)
 
   useEffect(() => {
     const navbarControl = () => {
       if (window.scrollY > 200) {
-        setIsActive(true);
+        setIsActive(true)
       } else {
-        setIsActive(false);
+        setIsActive(false)
       }
-      window.addEventListener("scroll", navbarControl);
+      window.addEventListener("scroll", navbarControl)
       return () => {
-        window.removeEventListener("scroll", navbarControl);
-      };
-    };
-    navbarControl();
-  }, [isActive]);
+        window.removeEventListener("scroll", navbarControl)
+      }
+    }
+    navbarControl()
+  }, [isActive])
 
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(false)
 
   const handleCheckbox = () => {
-    setIsChecked(!isChecked);
+    setIsChecked(!isChecked)
     if (isChecked) {
-      navLinks.classList.remove("active");
+      navLinks.classList.remove("active")
     } else {
-      navLinks.classList.add("active");
+      navLinks.classList.add("active")
     }
-    setIsActive(!isActive);
-    setIsChecked(!isChecked);
+    setIsActive(!isActive)
+    setIsChecked(!isChecked)
   }
 
-  const el = useRef(null);
+  const el = useRef(null)
 
   useEffect(() => {
     const typed = new Typed(el.current, {
@@ -55,18 +60,125 @@ export const App = () => {
       backDelay: 1000,
       fadeOut: true,
       loop: true,
-    });
+    })
 
     return () => {
-      typed.destroy();
-    };
-  }, []);
+      typed.destroy()
+    }
+  }, [])
 
   // description about
   const descAbout = [{
     desc1: "As a passionate Fullstack Web Developer, I specialize in building scalable, responsive, and user-friendly web applications. I work with a modern tech stack including HTML5, CSS3, Bootstrap 5, JavaScript, PHP, Laravel, and React.js. I take pride in writing clean, efficient code and creating seamless user experiences.",
     desc2: "I thrive in team environments where collaboration and continuous learning are key. Keeping up with the latest technologies and best practices is part of my daily routine, ensuring that the solutions I develop are not only functional but also future-ready. Whether it's front-end design or back-end logic, I enjoy bringing ideas to life through code and solving real-world problems with smart digital solutions. I'm always eager to learn new technologies and take on new challenges, and I'm committed to delivering high-quality results to my clients."
   }]
+
+  // skill content
+  const skillContent = [
+    {
+      id: 1,
+      icon: "fa-brands fa-html5",
+      name: "HTML5",
+      desc: "The backbone of the web, crafting semantic and accessible markup."
+    },
+    {
+      id: 2,
+      icon: "fa-brands fa-css3-alt",
+      name: "CSS3",
+      desc: "Designing beautiful and responsive layouts with modern styling techniques."
+    },
+    {
+      id: 3,
+      icon: "fa-brands fa-js",
+      name: "JavaScript",
+      desc: "Adding interactivity and dynamic behavior to web applications."
+    },
+    {
+      id: 4,
+      icon: "fa-brands fa-bootstrap",
+      name: "Bootstrap 5",
+      desc: "Rapid UI development with a responsive, mobile-first framework."
+    },
+    {
+      id: 5,
+      icon: "/skills/tailwind.svg",
+      name: "Tailwind CSS",
+      desc: "Utility-first CSS framework for building modern, custom designs."
+    },
+    {
+      id: 6,
+      icon: "fa-brands fa-react",
+      name: "React",
+      desc: "Building reusable components and interactive UIs efficiently."
+    },
+    {
+      id: 7,
+      icon: "/skills/vite.svg",
+      name: "Vite",
+      desc: "Lightning-fast frontend tooling for modern web projects."
+    },
+    {
+      id: 8,
+      icon: "fa-brands fa-node-js",
+      name: "Node.js",
+      desc: "Server-side JavaScript runtime for scalable backend development."
+    },
+    {
+      id: 9,
+      icon: "/skills/express.svg",
+      name: "Express",
+      desc: "Minimal and flexible Node.js framework for building APIs."
+    },
+    {
+      id: 10,
+      icon: "fa-brands fa-php",
+      name: "PHP",
+      desc: "Server-side scripting language powering dynamic websites."
+    },
+    {
+      id: 11,
+      icon: "fa-brands fa-laravel",
+      name: "Laravel",
+      desc: "Elegant PHP framework for modern web application development."
+    },
+    {
+      id: 12,
+      icon: "fa-brands fa-python",
+      name: "Python",
+      desc: "Versatile programming language for everything from web to AI."
+    },
+    {
+      id: 13,
+      icon: "/skills/flask.svg",
+      name: "Flask",
+      desc: "Lightweight Python framework for rapid web app development."
+    },
+    {
+      id: 14,
+      icon: "/skills/mysql.svg",
+      name: "MySQL",
+      desc: "Reliable relational database for structured data management."
+    },
+    {
+      id: 15,
+      icon: "/skills/postgresql.svg",
+      name: "PostgreSQL",
+      desc: "Advanced open-source database with powerful features."
+    },
+    {
+      id: 16,
+      icon: "fa-brands fa-git",
+      name: "Git",
+      desc: "Version control system to track and manage code changes."
+    },
+    {
+      id: 17,
+      icon: "fa-brands fa-github",
+      name: "GitHub",
+      desc: "Collaboration platform for hosting and reviewing code."
+    },
+  ]
+
 
   return (
     <>
@@ -88,11 +200,11 @@ export const App = () => {
         </nav>
         <label className="ham__container">
           <input type="checkbox" onChange={handleCheckbox} />
-            <div class="checkmark">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
+          <div class="checkmark">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
         </label>
       </div>
 
@@ -143,6 +255,45 @@ export const App = () => {
             </div>
           </div>
         </section>
+
+        {/* skills */}
+        <section className="skills" id="skills">
+          <h1 className="section__title">
+            My <span>Skills</span>
+          </h1>
+          <div className="section__devider"></div>
+
+          <Swiper
+            modules={[FreeMode, Autoplay]}
+            freeMode={true}
+            loop={true}
+            grabCursor={true}
+            autoplay={{
+              delay: 0,
+              disableOnInteraction: false
+            }}
+            speed={3000}
+            spaceBetween={20}
+            slidesPerView="auto"
+          >
+            {skillContent.map((item) => (
+              <SwiperSlide key={item.id} style={{ width: '300px' }}>
+                <div className="skill__card">
+                  <div className="logo">
+                    {item.icon.startsWith('/') ? (
+                      <img src={item.icon} alt={item.name} style={{ width: '24px', height: '24px' }} />
+                    ) : (
+                      <i className={item.icon}></i>
+                    )}
+                  </div>
+                  <h1>{item.name}</h1>
+                  <p>{item.desc}</p>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </section>
+
       </div>
     </>
   )

@@ -13,7 +13,7 @@
 }
 
 .navbar__container.active {
-    padding: 1rem 2rem;
+    padding: 1rem 3.5rem;
     background-color: rgba(255, 255, 255, 0);
     backdrop-filter: blur(10px);
 
@@ -41,7 +41,6 @@
     transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-/* Hide the default checkbox */
 .ham__container input {
     position: absolute;
     opacity: 0;
@@ -462,4 +461,58 @@ section.about {
     .desc__about {
         max-width: 100%;
     }
+}
+
+
+
+/* skills */
+section.skills {
+    padding-top: 80px;
+}
+
+.cards__slider {
+    margin-top: 50px;
+}
+
+
+.swiper {
+  width: 100%;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+}
+
+.skill__card {
+    width: 300px;
+    height: 200px;
+    margin-top: 50px;
+    background-color: var(--bg-card);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+    background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+    border-radius: 50%;
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-size: 1.7rem;
+}
+.skill__card h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: "orbitron", sans-serif;
+    color: var(--secondary-color);
+    text-transform: uppercase;
 }

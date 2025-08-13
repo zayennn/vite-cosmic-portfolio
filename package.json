@@ -15,6 +15,7 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "styled-components": "^6.1.19",
+    "swiper": "^11.2.10",
     "typed.js": "^2.1.0"
   },
   "devDependencies": {
