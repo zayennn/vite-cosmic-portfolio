@@ -205,10 +205,56 @@ export const App = () => {
   ]
 
 
+  // window scroll + parallax effects
+  const starContainerRef = useRef(null);
+
+  useEffect(() => {
+    const sizes = [1.5, 2, 2.5, 3, 3.5];
+    const starCount = 100;
+    const container = starContainerRef.current;
+    container.innerHTML = "";
+
+    const starsData = [];
+
+    for (let i = 0; i < starCount; i++) {
+      const size = sizes[Math.floor(Math.random() * sizes.length)];
+      const star = document.createElement("div");
+      star.classList.add("star");
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.top = `${Math.random() * 100}%`;
+      container.appendChild(star);
+
+      starsData.push({
+        el: star,
+        size,
+        baseTop: parseFloat(star.style.top),
+      });
+    }
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const maxSize = Math.max(...starsData.map(s => s.size))
+      starsData.forEach(({ el, size, baseTop }) => {
+        const speed = (maxSize / size) / .2;
+        el.style.transform = `translateY(${-scrollY / speed}px)`;
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+
   return (
     <>
+      {/* stars */}
+      <div className="stars-overlay" ref={starContainerRef}></div>
+
       {/* costume cursor */}
       <Cursor />
+      <div className="overlay overlay-1"></div>
 
       {/* navbar */}
       <div className={`navbar__container ${isActive ? "active" : ""}`}>

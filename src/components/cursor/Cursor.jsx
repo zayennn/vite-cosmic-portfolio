@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { gsap, Power3 } from "gsap";
 import './cursor.css';
 
@@ -14,69 +14,6 @@ const Cursor = () => {
         let dots = [];
         let timeoutID;
         let idle = false;
-        let hoverButton;
-
-        // List elemen yang bikin cursor membesar pas hover
-        // const hoverSelectors = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'a', 'button', '.card'];
-
-        class HoverButton {
-            constructor(id) {
-                this.hovered = false;
-                this.animatingHover = false;
-                this.forceOut = false;
-                this.timing = 0.65;
-                this.el = document.getElementById(id);
-                if (!this.el) return;
-                this.bg = this.el.getElementsByClassName("bg")[0];
-                this.el.addEventListener("mouseenter", this.onMouseEnter);
-                this.el.addEventListener("mouseleave", this.onMouseLeave);
-            }
-
-            onMouseEnter = () => {
-                this.hoverInAnim();
-            };
-
-            hoverInAnim = () => {
-                if (!this.hovered) {
-                    this.hovered = true;
-                    this.animatingHover = true;
-                    this.forceOut = false;
-                    gsap.fromTo(
-                        this.bg,
-                        { x: "-112%" },
-                        {
-                            duration: this.timing,
-                            x: "-12%",
-                            ease: Power3.easeOut,
-                            onComplete: () => {
-                                this.animatingHover = false;
-                                if (this.forceOut) {
-                                    this.forceOut = false;
-                                    this.hoverOutAnim();
-                                }
-                            },
-                        }
-                    );
-                }
-            };
-
-            onMouseLeave = () => {
-                if (!this.animatingHover) {
-                    this.hoverOutAnim();
-                } else {
-                    this.forceOut = true;
-                }
-            };
-
-            hoverOutAnim = () => {
-                this.hovered = false;
-                gsap.to(this.bg, {
-                    duration: this.timing,
-                    x: "100%",
-                    ease: Power3.easeOut,
-                });
-            };
-        }
 
         class Dot {
             constructor(index = 0) {
@@ -112,30 +49,9 @@ const Cursor = () => {
             }
         }
 
-        class Circle {
-            constructor(id) {
-                const el = document.getElementById(id);
-                if (!el) return;
-                const parent = el.parentElement;
-                parent.removeChild(el);
-                const chars = el.innerText.split("");
-                chars.push(" ");
-                for (let i = 0; i < chars.length; i++) {
-                    const span = document.createElement("span");
-                    span.innerText = chars[i];
-                    span.className = `char${i + 1}`;
-                    parent.appendChild(span);
-                }
-            }
-        }
-
         function init() {
             window.addEventListener("mousemove", onMouseMove);
             window.addEventListener("touchmove", onTouchMove);
-            window.addEventListener("mouseover", onHover);
-            window.addEventListener("mouseout", onHoverOut);
-            hoverButton = new HoverButton("button");
-            new Circle("circle-content");
             lastFrame += new Date();
             buildDots();
             render();
@@ -177,46 +93,6 @@ const Cursor = () => {
             resetIdleTimer();
         };
 
-        // Logic hover: cek target, kalo matches selector, scale up cursor
-        const onHover = (e) => {
-            for (const selector of hoverSelectors) {
-                if (
-                    selector.startsWith(".") &&
-                    e.target.classList.contains(selector.substring(1))
-                ) {
-                    scaleCursorUp();
-                    return;
-                }
-                if (e.target.tagName.toLowerCase() === selector.toLowerCase()) {
-                    scaleCursorUp();
-                    return;
-                }
-            }
-        };
-
-        const onHoverOut = (e) => {
-            // Kalau hover hilang, kecilin lagi
-            scaleCursorDown();
-        };
-
-        // Scale cursor up
-        const scaleCursorUp = () => {
-            gsap.to(cursor, {
-                duration: 0.3,
-                scale: 1.8,
-                ease: Power3.easeOut,
-            });
-        };
-
-        // Scale cursor down
-        const scaleCursorDown = () => {
-            gsap.to(cursor, {
-                duration: 0.3,
-                scale: 1,
-                ease: Power3.easeOut,
-            });
-        };
-
         const render = (timestamp) => {
             const delta = timestamp - lastFrame;
             positionCursor(delta);
@@ -246,8 +122,6 @@ const Cursor = () => {
         return () => {
             window.removeEventListener("mousemove", onMouseMove);
             window.removeEventListener("touchmove", onTouchMove);
-            window.removeEventListener("mouseover", onHover);
-            window.removeEventListener("mouseout", onHoverOut);
             dots = [];
             cursor.innerHTML = "";
         };
