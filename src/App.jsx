@@ -246,6 +246,48 @@ export const App = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const container = starContainerRef.current;
+
+    const createShootingStar = () => {
+      const shootingStar = document.createElement("div");
+      shootingStar.classList.add("shooting-star");
+
+      const startX = Math.random() * window.innerWidth;
+      const startY = -50; 
+
+      const angleDeg = 15 + Math.random() * 30;
+      const angleRad = angleDeg * (Math.PI / 180);
+
+      const speed = 400 + Math.random() * 300; 
+      const distance = 1000; 
+
+      const endX = startX + Math.cos(angleRad) * distance;
+      const endY = startY + Math.sin(angleRad) * distance;
+
+      shootingStar.style.left = `${startX}px`;
+      shootingStar.style.top = `${startY}px`;
+      shootingStar.style.transform = `rotate(${angleDeg}deg)`;
+
+      shootingStar.animate([
+        { transform: `translate(0, 0) rotate(${angleDeg}deg)`, opacity: 1 },
+        { transform: `translate(${endX - startX}px, ${endY - startY}px) rotate(${angleDeg}deg)`, opacity: 0 }
+      ], {
+        duration: (distance / speed) * 1000,
+        easing: "linear"
+      });
+
+      container.appendChild(shootingStar);
+
+      setTimeout(() => shootingStar.remove(), (distance / speed) * 1000);
+    };
+
+    const interval = setInterval(() => {
+      if (Math.random() < 0.5) createShootingStar();
+    }, 800);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <>

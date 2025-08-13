@@ -219,3 +219,23 @@ body {
     background: white;
     opacity: 0.8;
 }
+
+
+.falling-star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 6px white;
+}
+
+.shooting-star {
+    position: absolute;
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(to right, white, rgba(255, 255, 255, 0));
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.8;
+}
