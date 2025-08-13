@@ -246,6 +246,8 @@ export const App = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+
+  // shouting stars
   useEffect(() => {
     const container = starContainerRef.current;
 
@@ -253,14 +255,15 @@ export const App = () => {
       const shootingStar = document.createElement("div");
       shootingStar.classList.add("shooting-star");
 
+      const bodyHeight = document.body.scrollHeight;
+      const startY = Math.random() * bodyHeight;
       const startX = Math.random() * window.innerWidth;
-      const startY = -50; 
 
       const angleDeg = 15 + Math.random() * 30;
       const angleRad = angleDeg * (Math.PI / 180);
 
-      const speed = 400 + Math.random() * 300; 
-      const distance = 1000; 
+      const speed = 400 + Math.random() * 300;
+      const distance = 1000;
 
       const endX = startX + Math.cos(angleRad) * distance;
       const endY = startY + Math.sin(angleRad) * distance;
@@ -288,6 +291,7 @@ export const App = () => {
 
     return () => clearInterval(interval);
   }, []);
+
 
   return (
     <>
