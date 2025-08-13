@@ -41,6 +41,28 @@
     transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
+.nav__link {
+    position: relative;
+}
+
+
+.nav__link::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 0;
+    height: 2.5px;
+    border-radius: 10px;
+    background-color: var(--primary-color);
+    transition: all .3s ease;
+}
+
+.nav__link.active::after {
+    width: 50%;
+}
+
+
 .ham__container input {
     position: absolute;
     opacity: 0;

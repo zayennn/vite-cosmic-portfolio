@@ -50,6 +50,31 @@ export const App = () => {
     setIsChecked(!isChecked)
   }
 
+  const [activeSection, setActiveSection] = useState("");
+
+  useEffect(() => {
+    const sections = document.querySelectorAll("section[id]");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      {
+        threshold: 0.5,
+      }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => {
+      sections.forEach((section) => observer.unobserve(section));
+    };
+  }, []);
+
   const el = useRef(null)
 
   useEffect(() => {
@@ -191,12 +216,12 @@ export const App = () => {
           port<span>folio</span>
         </h1>
         <nav className={`nav__links ${isChecked ? "active" : ""}`}>
-          <a href="#hero" className="nav__link" style={{ "--i": 1 }}>home</a>
-          <a href="#about" className="nav__link" style={{ "--i": 2 }}>about</a>
-          <a href="#skills" className="nav__link" style={{ "--i": 3 }}>skills</a>
-          <a href="#education" className="nav__link" style={{ "--i": 4 }}>education & experience</a>
-          <a href="#projects" className="nav__link" style={{ "--i": 5 }}>projects</a>
-          <a href="#contact" className="nav__link" style={{ "--i": 6 }}>contact</a>
+          <a href="#hero" className={`nav__link ${activeSection === "hero" ? "active" : ""}`} style={{ "--i": 1 }}>home</a>
+          <a href="#about" className={`nav__link ${activeSection === "about" ? "active" : ""}`} style={{ "--i": 2 }}>about</a>
+          <a href="#skills" className={`nav__link ${activeSection === "skills" ? "active" : ""}`} style={{ "--i": 3 }}>skills</a>
+          <a href="#education" className={`nav__link ${activeSection === "education" ? "active" : ""}`} style={{ "--i": 4 }}>education & experience</a>
+          <a href="#projects" className={`nav__link ${activeSection === "projects" ? "active" : ""}`} style={{ "--i": 5 }}>projects</a>
+          <a href="#contact" className={`nav__link ${activeSection === "contact" ? "active" : ""}`} style={{ "--i": 6 }}>contact</a>
         </nav>
         <label className="ham__container">
           <input type="checkbox" onChange={handleCheckbox} />
