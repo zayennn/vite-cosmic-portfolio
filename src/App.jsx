@@ -209,7 +209,7 @@ export const App = () => {
   const starContainerRef = useRef(null);
 
   useEffect(() => {
-    const sizes = [1.5, 2, 2.5, 3, 3.5];
+    const sizes = [1.5, 2, 2.3, 2.8, 3];
     const starCount = 100;
     const container = starContainerRef.current;
     container.innerHTML = "";
@@ -236,8 +236,11 @@ export const App = () => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const maxSize = Math.max(...starsData.map(s => s.size))
-      starsData.forEach(({ el, size, baseTop }) => {
-        const speed = (maxSize / size) / .2;
+      starsData.forEach(({ el, size }) => {
+        const sizeFactor = maxSize / size / .2;
+        const extraSlow = Math.pow(sizeFactor, 2);
+
+        const speed = extraSlow * 0.15;
         el.style.transform = `translateY(${-scrollY / speed}px)`;
       });
     };
