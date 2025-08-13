@@ -227,7 +227,7 @@ body {
     height: 3px;
     background: white;
     border-radius: 50%;
-    box-shadow: 0 0 6px white;
+    box-shadow: 0 0 10px white;
 }
 
 .shooting-star {
@@ -238,4 +238,48 @@ body {
     border-radius: 50%;
     pointer-events: none;
     opacity: 0.8;
+}
+
+.black-hole {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center,
+            #000000 0%,
+            #1a0000 20%,
+            #330000 40%,
+            #4d0000 60%,
+            #660000 80%,
+            #800000 100%);
+    box-shadow:
+        0 0 30px rgba(255, 69, 0, 0.7),
+        0 0 60px rgba(255, 0, 0, 0.5),
+        inset 0 0 20px rgba(0, 0, 0, 0.9);
+    z-index: -5;
+    pointer-events: none;
+    opacity: 0;
+    animation:
+        blackhole-appear 1.5s ease-out forwards,
+        blackhole-disappear 1.5s 6.5s ease-in forwards;
+    filter: drop-shadow(0 0 10px rgba(255, 50, 0, 0.8));
+}
+
+@keyframes blackhole-appear {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes blackhole-disappear {
+    to {
+        opacity: 0;
+        transform: scale(0.5);
+    }
 }

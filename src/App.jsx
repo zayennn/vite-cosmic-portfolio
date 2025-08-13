@@ -210,12 +210,15 @@ export const App = () => {
 
   useEffect(() => {
     const sizes = [1.5, 2, 2.3, 2.8, 3];
-    const starCount = 100;
+    const starCount = 120;
     const container = starContainerRef.current;
     container.innerHTML = "";
 
     const starsData = [];
+    const blackHoles = [];
+    let latestScrollY = 0;
 
+    // Spawn stars
     for (let i = 0; i < starCount; i++) {
       const size = sizes[Math.floor(Math.random() * sizes.length)];
       const star = document.createElement("div");
@@ -226,29 +229,115 @@ export const App = () => {
       star.style.top = `${Math.random() * 100}%`;
       container.appendChild(star);
 
+      const sizeFactor = Math.pow((Math.max(...sizes) / size) / 0.2, 2);
+      const speed = sizeFactor * 0.15;
+
       starsData.push({
         el: star,
         size,
         baseTop: parseFloat(star.style.top),
+        baseLeft: parseFloat(star.style.left),
+        speed,
+        pullOffset: { x: 0, y: 0 },
+        pulled: false
       });
     }
 
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const maxSize = Math.max(...starsData.map(s => s.size))
-      starsData.forEach(({ el, size }) => {
-        const sizeFactor = maxSize / size / .2;
-        const extraSlow = Math.pow(sizeFactor, 2);
+    // Spawn black hole function
+    const spawnBlackHole = () => {
+      // Kalau masih ada black hole aktif, skip
+      if (blackHoles.length > 0) return;
 
-        const speed = extraSlow * 0.15;
-        el.style.transform = `translateY(${-scrollY / speed}px)`;
+      const blackHole = document.createElement("div");
+      blackHole.classList.add("black-hole");
+
+      const x = Math.random() * window.innerWidth;
+      const y = Math.random() * document.body.scrollHeight;
+
+      blackHole.style.left = `${x}px`;
+      blackHole.style.top = `${y}px`;
+
+      container.appendChild(blackHole);
+
+      const bhData = {
+        el: blackHole,
+        baseTop: y / window.innerHeight * 100,
+        baseLeft: x,
+        speed: 15
+      };
+      blackHoles.push(bhData);
+
+      // Tarikan bintang
+      const pullRadius = 200;
+      const pullDuration = 1500;
+
+      starsData.forEach(star => {
+        const starRect = star.el.getBoundingClientRect();
+        const holeRect = blackHole.getBoundingClientRect();
+        const dx = (holeRect.left + holeRect.width / 2) - (starRect.left + starRect.width / 2);
+        const dy = (holeRect.top + holeRect.height / 2) - (starRect.top + starRect.height / 2);
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < pullRadius && !star.pulled) {
+          star.pulled = true;
+          const pullStrength = 1 - distance / pullRadius;
+
+          const startTime = performance.now();
+          const animatePull = (time) => {
+            const t = Math.min((time - startTime) / pullDuration, 1);
+            star.pullOffset.x = dx * t * pullStrength * 2;
+            star.pullOffset.y = dy * t * pullStrength * 2;
+            star.el.style.opacity = `${1 - t}`;
+            if (t < 1) requestAnimationFrame(animatePull);
+            else {
+              star.el.style.display = "none";
+            }
+          };
+          requestAnimationFrame(animatePull);
+        }
       });
+
+      // Hilang setelah 8 detik
+      setTimeout(() => {
+        blackHole.remove();
+        blackHoles.splice(0, 1);
+
+        // Spawn lagi setelah delay random 7-10 detik
+        setTimeout(spawnBlackHole, 7000 + Math.random() * 3000);
+      }, 8000);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    // Spawn pertama setelah 3 detik
+    setTimeout(spawnBlackHole, 3000);
 
+    // Scroll handler
+    const handleScroll = () => {
+      latestScrollY = window.scrollY;
+    };
+    window.addEventListener("scroll", handleScroll);
+
+    // Animation loop
+    const animate = () => {
+      starsData.forEach(star => {
+        if (!star.pulled) {
+          star.el.style.transform = `translate(${star.pullOffset.x}px, ${-latestScrollY / star.speed + star.pullOffset.y}px)`;
+        } else {
+          star.el.style.transform = `translate(${star.pullOffset.x}px, ${star.pullOffset.y - latestScrollY / star.speed}px)`;
+        }
+      });
+
+      blackHoles.forEach(bh => {
+        bh.el.style.transform = `translateY(${-latestScrollY / bh.speed}px)`;
+      });
+
+      requestAnimationFrame(animate);
+    };
+    animate();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   // shouting stars
   useEffect(() => {
