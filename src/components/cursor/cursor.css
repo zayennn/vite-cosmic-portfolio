@@ -33,3 +33,12 @@ svg {
     transform-origin: center center;
     transform: translate(-50%, -50%);
 }
+
+@media screen and (max-width: 768px) {
+    * {
+        cursor: default !important;
+    }
+    .Cursor {
+        display: none !important;
+    }
+}
