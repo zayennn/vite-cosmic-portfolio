@@ -64,6 +64,7 @@ body {
     pointer-events: none;
     z-index: -10;
 }
+
 .overlay.overlay-2 {
     position: absolute;
     top: 0;
@@ -177,6 +178,126 @@ body {
     50% {
         transform: translateY(-10px);
     }
+}
+
+
+/* social media */
+.hero__socials {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 1rem;
+}
+/* socials */
+/* github */
+.github {
+    background-color: #2e2e31;
+    color: #fff;
+    padding: 1.5rem;
+    border-radius: 50%;
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.github i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.4rem;
+    transition: all 0.3s ease;
+}
+
+.github i:nth-child(1) {
+    top: -50%;
+}
+
+.github:hover {
+    background-color: #fff;
+    color: #2e2e31;
+}
+
+.github:hover i:nth-child(1) {
+    top: 50%;
+}
+
+.github:hover i:nth-child(2) {
+    top: 150%;
+}
+
+/* instagram */
+.instagram {
+    background-color: #e322b2;
+    color: #fff;
+    padding: 1.5rem;
+    border-radius: 50%;
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.instagram i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.4rem;
+    transition: all 0.3s ease;
+}
+
+.instagram i:nth-child(1) {
+    top: -50%;
+}
+
+.instagram:hover {
+    background-color: #fff;
+    color: #e322b2;
+}
+
+.instagram:hover i:nth-child(1) {
+    top: 50%;
+}
+
+.instagram:hover i:nth-child(2) {
+    top: 150%;
+}
+
+/* linkedin */
+.linkedin {
+    background-color: #0077b5;
+    color: #fff;
+    padding: 1.5rem;
+    border-radius: 50%;
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.linkedin i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.4rem;
+    transition: all 0.3s ease;
+}
+
+.linkedin i:nth-child(1) {
+    top: -50%;
+}
+
+.linkedin:hover {
+    background-color: #fff;
+    color: #0077b5;
+}
+
+.linkedin:hover i:nth-child(1) {
+    top: 50%;
+}
+
+.linkedin:hover i:nth-child(2) {
+    top: 150%;
 }
 
 

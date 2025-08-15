@@ -5,7 +5,7 @@ export default function StarField() {
 
     useEffect(() => {
         const sizes = [1.5, 2, 2.3, 2.8, 3];
-        const starCount = 100;
+        const starCount = 500;
         const container = starContainerRef.current;
         container.innerHTML = "";
 

@@ -11,6 +11,7 @@ import 'swiper/css/free-mode'
 import 'swiper/css/autoplay'
 import { FreeMode, Autoplay } from 'swiper/modules'
 import mixitup from 'mixitup'
+import VanillaTilt from "vanilla-tilt"
 
 // components
 import Cursor from "./components/cursor/Cursor"
@@ -116,13 +117,22 @@ export const App = () => {
 
   // tilt
   useEffect(() => {
-    const tiltElements = document.querySelectorAll(".project__card");
-    VanillaTilt.init(tiltElements, {
-      max: 15,
-      speed: 200,
-      glare: true,
-      "max-glare": 0.1,
-    });
+    if (window.innerWidth > 768) {
+      const tiltElements = document.querySelectorAll(".project__card");
+      VanillaTilt.init(tiltElements, {
+        max: 15,
+        speed: 200,
+        glare: true,
+        "max-glare": 0.1,
+      });
+    }
+
+    return () => {
+      const tiltElements = document.querySelectorAll(".project__card");
+      tiltElements.forEach(el => {
+        el.vanillaTilt?.destroy();
+      });
+    };
   }, []);
 
   return (
@@ -317,6 +327,7 @@ export const App = () => {
             })}
           </div>
 
+          {/* banner */}
           <div className="banner" data-aos="fade-up">
             <div className="glare"></div>
             <h1>I Am Available For <span>Freelance</span></h1>
@@ -328,6 +339,95 @@ export const App = () => {
               Contact Me
               <span></span>
             </a>
+          </div>
+        </section>
+
+        {/* contact */}
+        <section className="contact" id="contact">
+          <h1 className="section__title">
+            Get In <span>Touch</span>
+          </h1>
+          <div className="section__devider"></div>
+          <div className="content__contact">
+            <div className="contact__container">
+              <div className="contact__info" data-aos="fade-up">
+                <h3 className="info__title">Let's Talk About Your Project</h3>
+                <p className="info__text">Feel free to reach out through any of these channels</p>
+
+                <div className="info__items">
+                  {/* email */}
+                  <div className="info__item">
+                    <div className="info__icon">
+                      <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div className="info__content">
+                      <h4>Email</h4>
+                      <a href="mailto:your@email.com">zaayeennn@gmail.com</a>
+                    </div>
+                  </div>
+
+                  {/* phone */}
+                  <div className="info__item">
+                    <div className="info__icon">
+                      <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <div className="info__content">
+                      <h4>Phone</h4>
+                      <a href="tel:+1234567890">+62 8778 8612 930</a>
+                    </div>
+                  </div>
+
+                  {/* location */}
+                  <div className="info__item">
+                    <div className="info__icon">
+                      <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <div className="info__content">
+                      <h4>Location</h4>
+                      <p>West Java, Indonesia</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* social media */}
+                <div className="hero__socials">
+                  <a href="https://github.com/zayennn" className="github">
+                    <i className="fab fa-github"></i>
+                    <i className="fab fa-github"></i>
+                  </a>
+                  <a href="https://www.instagram.com/zaayeenn_/" className="instagram">
+                    <i className="fab fa-instagram"></i>
+                    <i className="fab fa-instagram"></i>
+                  </a>
+                  <a href="https://www.linkedin.com/in/elang-atha-zahran-100459220/" className="linkedin">
+                    <i className="fab fa-linkedin"></i>
+                    <i className="fab fa-linkedin"></i>
+                  </a>
+                </div>
+              </div>
+
+              <div className="contact__form" data-aos="fade-up" data-aos-delay="300">
+                <form action="#" method="POST">
+                  <div className="form__group">
+                    <input type="text" name="name" id="name" required />
+                    <label htmlFor="name">Your Name</label>
+                  </div>
+                  <div className="form__group">
+                    <input type="email" name="email" id="email" required />
+                    <label htmlFor="email">Your Email</label>
+                  </div>
+                  <div className="form__group">
+                    <input type="text" name="subject" id="subject" required />
+                    <label htmlFor="subject">Subject</label>
+                  </div>
+                  <div className="form__group">
+                    <textarea name="message" id="message" rows="5" required></textarea>
+                    <label htmlFor="message">Your Message</label>
+                  </div>
+                  <button type="submit" className="playful-btn">Send Message</button>
+                </form>
+              </div>
+            </div>
           </div>
         </section>
       </div>
