@@ -18,6 +18,7 @@ import StarField from "./components/starfield/StarField"
 // data
 import descAbout from './assets/datas/descAbout'
 import skillContent from './assets/datas/Skills'
+import educationAndExperience from './assets/datas/educationAndExperience'
 
 export const App = () => {
   useEffect(() => {
@@ -130,7 +131,7 @@ export const App = () => {
         </label>
       </div>
 
-      {/* hero section */}
+      {/* content section */}
       <div className="container">
         {/* hero */}
         <section className="hero" id="hero">
@@ -186,11 +187,12 @@ export const App = () => {
 
         {/* skills */}
         <section className="skills" id="skills">
-          <h1 className="section__title">
-            My <span>Skills</span>
-          </h1>
-          <div className="section__devider"></div>
-
+          <div className="title">
+            <h1 className="section__title">
+              My <span>Skills</span>
+            </h1>
+            <div className="section__devider"></div>
+          </div>
           <Swiper
             modules={[FreeMode, Autoplay]}
             freeMode={true}
@@ -222,6 +224,34 @@ export const App = () => {
           </Swiper>
         </section>
 
+        {/* education & experience */}
+        <section id="education" class="experience section">
+          <h1 class="section__title">
+            Education & <span>Experience</span>
+          </h1>
+          <div class="section__devider"></div>
+          <div class="timeline">
+            {educationAndExperience.map((data) => {
+              const isMobile = typeof window !== "undefined" && window.innerWidth <= 768
+              const aosDirection = isMobile 
+                ? "fade-left" 
+                : `fade-${data.id % 2 === 0 ? 'left' : 'right'}`
+              return (
+                <div class="timeline-item" key={data.id}>
+                  <div class="timeline-date" data-aos={aosDirection}>{data.date}</div>
+                  <div class={`dot ${data.id % 2 === 0 ? 'left' : 'right'}`}></div>
+                  <div class="timeline-content" data-aos={aosDirection} data-aos-delay="300">
+                    <h3>{data.title}</h3>
+                    <h4>{data.subTitle}</h4>
+                    <p>
+                      {data.desc}
+                    </p>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </section>
       </div>
     </>
   )
