@@ -4,46 +4,62 @@ export default function StarField() {
     const starContainerRef = useRef(null);
 
     useEffect(() => {
-        const sizes = [1.5, 2, 2.3, 2.8, 3];
-        const starCount = 100;
+        const starCount = 500;
+        const starLevels = [
+            { size: 3, speed: 0.1, brightness: 180 },
+            { size: 2, speed: 0.3, brightness: 150 },
+            { size: 1, speed: 0.5, brightness: 100 },
+            { size: 0.7, speed: 0.8, brightness: 70 },
+        ];
+
         const container = starContainerRef.current;
-        container.innerHTML = "";
 
-        const starsData = [];
-        let isBlackHoleActive = false;
-
-        // bikin bintang
-        for (let i = 0; i < starCount; i++) {
-            const size = sizes[Math.floor(Math.random() * sizes.length)];
-            const star = document.createElement("div");
-            star.classList.add("star");
-            star.style.width = `${size}px`;
-            star.style.height = `${size}px`;
-            star.style.left = `${Math.random() * 100}%`;
-            star.style.top = `${Math.random() * 100}%`;
-            container.appendChild(star);
-
-            const maxSize = Math.max(...sizes);
-            const sizeFactor = maxSize / size / 0.2;
-            const extraSlow = Math.pow(sizeFactor, 2);
-            const speed = extraSlow * 0.15;
-
-            starsData.push({
-                el: star,
-                speed,
-            });
+        function getDocumentHeight() {
+            return Math.max(
+                document.body.scrollHeight,
+                document.documentElement.scrollHeight
+            );
         }
 
-        // parallax scroll
+        function updateStarsWrapperHeight() {
+            const documentHeight = getDocumentHeight();
+            container.style.height = `${documentHeight}px`;
+        }
+
+        updateStarsWrapperHeight();
+        window.addEventListener("resize", updateStarsWrapperHeight);
+
+        container.innerHTML = "";
+
+        // simpan data bintang buat parallax
+        const starsData = [];
+
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement("div");
+            star.classList.add("star");
+
+            const level = starLevels[Math.floor(Math.random() * starLevels.length)];
+            star.style.width = `${level.size}px`;
+            star.style.height = `${level.size}px`;
+            star.style.backgroundColor = `rgb(${level.brightness}, ${level.brightness}, ${level.brightness})`;
+            star.style.left = `${Math.random() * window.innerWidth}px`;
+            star.style.top = `${Math.random() * getDocumentHeight()}px`;
+
+            container.appendChild(star);
+            starsData.push({ el: star, speed: level.speed });
+        }
+
         const handleScroll = () => {
             const scrollY = window.scrollY;
             starsData.forEach(({ el, speed }) => {
-                el.style.transform = `translateY(${-scrollY / speed}px)`;
+                el.style.transform = `translateY(${scrollY * speed}px)`;
             });
         };
+
         window.addEventListener("scroll", handleScroll);
 
         return () => {
+            window.removeEventListener("resize", updateStarsWrapperHeight);
             window.removeEventListener("scroll", handleScroll);
         };
     }, []);
@@ -93,5 +109,5 @@ export default function StarField() {
         return () => clearInterval(interval);
     }, []);
 
-    return <div ref={starContainerRef} className="star-container"></div>;
+    return <div ref={starContainerRef} className="stars-overlay"></div>;
 }
