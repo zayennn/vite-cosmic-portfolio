@@ -431,6 +431,79 @@ export const App = () => {
           </div>
         </section>
       </div>
+
+      {/* footer */}
+      <footer className="footer">
+        <div className="footer__container">
+          <div className="footer__top">
+            <div className="footer__brand">
+              <a href="#" className="footer__logo">Port<span>folio</span></a>
+              <p className="footer__tagline">
+                I'm always open to discussing new projects, collaborations, or just a friendly chat about web
+                development. Whether you have a question, an idea, or simply want to say hello — feel free to
+                reach out. Let's build something great together!
+              </p>
+
+              <div className="hero__socials">
+                <a href="https://github.com/zayennn" className="github">
+                  <i className="fab fa-github"></i>
+                  <i className="fab fa-github"></i>
+                </a>
+                <a href="https://www.instagram.com/zaayeenn_/" className="instagram">
+                  <i className="fab fa-instagram"></i>
+                  <i className="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/elang-atha-zahran-100459220/" className="linkedin">
+                  <i className="fab fa-linkedin"></i>
+                  <i className="fab fa-linkedin"></i>
+                </a>
+              </div>
+            </div>
+
+            <div className="footer__links">
+              <div className="links__group">
+                <h3 className="links__title">Quick Links</h3>
+                <ul className="links__list">
+                  <li><a href="#">Home</a></li>
+                  <li><a href="#about">About</a></li>
+                  <li><a href="#skills">Skills</a></li>
+                  <li><a href="#education-experience">Education & Experience</a></li>
+                  <li><a href="#projects">Projects</a></li>
+                  <li><a href="#contact">Contact</a></li>
+                </ul>
+              </div>
+
+              <div className="links__group">
+                <h3 className="links__title">Services</h3>
+                <ul className="links__list">
+                  <li><a href="#">Web Development</a></li>
+                </ul>
+              </div>
+
+              <div className="links__group">
+                <h3 className="links__title">Contact</h3>
+                <ul className="links__list">
+                  <li><a href="mailto:your@email.com">zaayeenn@gmail.com</a></li>
+                  <li><a href="tel:+1234567890">+62 8778 8612 930</a></li>
+                  <li>
+                    <address>West Java, Indonesia</address>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="footer__bottom">
+            <p className="copyright">&copy; <span id="year"></span> Elang Atha Zahran. All rights reserved.</p>
+
+            <div className="legal__links">
+              <a href="#">Privacy Policy</a>
+              <span>|</span>
+              <a href="#">Terms of Service</a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </>
   )
 }
