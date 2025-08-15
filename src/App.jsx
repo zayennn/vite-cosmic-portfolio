@@ -10,6 +10,7 @@ import 'swiper/css'
 import 'swiper/css/free-mode'
 import 'swiper/css/autoplay'
 import { FreeMode, Autoplay } from 'swiper/modules'
+import mixitup from 'mixitup'
 
 // components
 import Cursor from "./components/cursor/Cursor"
@@ -19,6 +20,7 @@ import StarField from "./components/starfield/StarField"
 import descAbout from './assets/datas/descAbout'
 import skillContent from './assets/datas/Skills'
 import educationAndExperience from './assets/datas/educationAndExperience'
+import projects from './assets/datas/projects'
 
 export const App = () => {
   useEffect(() => {
@@ -99,6 +101,30 @@ export const App = () => {
     }
   }, [])
 
+  // mixitup
+  useEffect(() => {
+    const mixer = mixitup('.projects__content', {
+      animation: {
+        duration: 300,
+      },
+    });
+
+    return () => {
+      mixer.destroy();
+    };
+  }, []);
+
+  // tilt
+  useEffect(() => {
+    const tiltElements = document.querySelectorAll(".project__card");
+    VanillaTilt.init(tiltElements, {
+      max: 15,
+      speed: 200,
+      glare: true,
+      "max-glare": 0.1,
+    });
+  }, []);
+
   return (
     <>
       {/* stars */}
@@ -106,7 +132,10 @@ export const App = () => {
 
       {/* costume cursor */}
       <Cursor />
+
+      {/* overlay */}
       <div className="overlay overlay-1"></div>
+      {/* <div className="overlay overlay-2"></div> */}
 
       {/* navbar */}
       <div className={`navbar__container ${isActive ? "active" : ""}`}>
@@ -225,22 +254,22 @@ export const App = () => {
         </section>
 
         {/* education & experience */}
-        <section id="education" class="experience section">
-          <h1 class="section__title">
+        <section id="education" className="experience section">
+          <h1 className="section__title">
             Education & <span>Experience</span>
           </h1>
-          <div class="section__devider"></div>
-          <div class="timeline">
+          <div className="section__devider"></div>
+          <div className="timeline">
             {educationAndExperience.map((data) => {
               const isMobile = typeof window !== "undefined" && window.innerWidth <= 768
-              const aosDirection = isMobile 
-                ? "fade-left" 
+              const aosDirection = isMobile
+                ? "fade-left"
                 : `fade-${data.id % 2 === 0 ? 'left' : 'right'}`
               return (
-                <div class="timeline-item" key={data.id}>
-                  <div class="timeline-date" data-aos={aosDirection}>{data.date}</div>
-                  <div class={`dot ${data.id % 2 === 0 ? 'left' : 'right'}`}></div>
-                  <div class="timeline-content" data-aos={aosDirection} data-aos-delay="300">
+                <div className="timeline-item" key={data.id}>
+                  <div className="timeline-date" data-aos={aosDirection}>{data.date}</div>
+                  <div className={`dot ${data.id % 2 === 0 ? 'left' : 'right'}`}></div>
+                  <div className="timeline-content" data-aos={aosDirection} data-aos-delay="300">
                     <h3>{data.title}</h3>
                     <h4>{data.subTitle}</h4>
                     <p>
@@ -250,6 +279,55 @@ export const App = () => {
                 </div>
               )
             })}
+          </div>
+        </section>
+
+        {/* projects */}
+        <section className="projects" id="projects">
+          <h1 className="section__title">
+            My <span>Projects</span>
+          </h1>
+          <div className="section__devider"></div>
+          <div className="btn__group filter-controls">
+            <button className="playful-btn" data-filter="all">All Projects</button>
+            <button className="playful-btn" data-filter=".web">Web Development</button>
+            <button className="playful-btn" data-filter=".cert">Certifications</button>
+          </div>
+
+          <div className="projects__content mix-container">
+            {projects.map((project) => {
+              return (
+                <div className={`project__card mix ${project.category}`} key={project.id}>
+                  <div className="image__project">
+                    <img src={project.image} alt={project.title} />
+                  </div>
+                  <div className="card__content">
+                    <h1 className="title__card-project">{project.title}</h1>
+                    <p className="card__content-desc">
+                      {project.desc}
+                    </p>
+                    <div className="btn__group">
+                      <a href={project.link} className="btn__link-card">
+                        <i className="fas fa-link"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          <div className="banner" data-aos="fade-up">
+            <div className="glare"></div>
+            <h1>I Am Available For <span>Freelance</span></h1>
+            <p>
+              Have a project in mind? Let's work together to
+              bring your ideas to life.
+            </p>
+            <a href="#contact" className="playful-btn">
+              Contact Me
+              <span></span>
+            </a>
           </div>
         </section>
       </div>

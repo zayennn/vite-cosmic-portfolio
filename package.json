@@ -12,11 +12,13 @@
   "dependencies": {
     "aos": "^2.3.4",
     "gsap": "^3.13.0",
+    "mixitup": "^3.3.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "styled-components": "^6.1.19",
     "swiper": "^11.2.10",
-    "typed.js": "^2.1.0"
+    "typed.js": "^2.1.0",
+    "vanilla-tilt": "^1.8.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",
