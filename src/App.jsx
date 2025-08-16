@@ -74,7 +74,7 @@ export const App = () => {
         });
       },
       {
-        threshold: 0.5,
+        threshold: 0.2,
       }
     );
 
@@ -219,7 +219,12 @@ export const App = () => {
                   </>
                 )
               })}
-              <a href="#" class="playful-btn">Download Cv</a>
+              <a 
+                href="https://drive.google.com/uc?export=download&id=11wosUfp3EdpWZaOVFNSYJbLB9EYEds2G" 
+                class="playful-btn"
+              >
+                Download Cv
+              </a>
             </div>
           </div>
         </section>
