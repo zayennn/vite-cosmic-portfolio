@@ -7,6 +7,7 @@ import pkl from '../images/projetcs/PKL.jpg'
 import dhp from '../images/projetcs/freelance-1.jpg'
 import smkn from '../images/projetcs/freelance-2.jpg'
 import portofolio from '../images/projetcs/vite-portfolio.png'
+import pythonLearning from '../images/projetcs/python learning.png'
 
 const projects = [
     {
@@ -81,6 +82,14 @@ const projects = [
         desc: "A personal portfolio website built with Vite, showcasing my skills, projects, and experience.",
         link: "https://github.com/zaayeenn/vite-portfolio",
         host: "https://vite-portfolio-drab.vercel.app/",
+    }, {
+        id: 10,
+        image: pythonLearning,
+        category: "web",
+        title: "Python Learning",
+        desc: "The React Web Python Learning project is an interactive website using React.js for learning Python basics in a practical and fun way. It's perfect for beginners to quickly learn without any hassle.",
+        link: "https://github.com/zayennn/react-web-python-learning",
+        host: "https://react-web-python-learning.vercel.app/",
     }
 ]
 

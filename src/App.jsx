@@ -50,6 +50,7 @@ export const App = () => {
   const [isChecked, setIsChecked] = useState(false)
 
   const handleCheckbox = () => {
+    const navLinks = document.querySelector('.nav__links')
     setIsChecked(!isChecked)
     if (isChecked) {
       navLinks.classList.remove("active")
@@ -325,6 +326,11 @@ export const App = () => {
                       <a href={project.link} className="btn__link-card">
                         <i className="fas fa-link"></i>
                       </a>
+                      {project.host && (
+                        <a href={project.host} className="btn__link-card">
+                          <i className="fas fa-globe"></i>
+                        </a>
+                      )}
                     </div>
                   </div>
                 </div>
